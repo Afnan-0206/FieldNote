@@ -1,4 +1,5 @@
 import { CompassIcon, BookOpenIcon, ShieldIcon, SparklesIcon, ClockIcon, EyeIcon } from './Icons.jsx';
+import { calculateBadges } from '../lib/storage.js';
 
 export function HomeDashboard({
   stats,
@@ -9,6 +10,8 @@ export function HomeDashboard({
   onOpenAiModal,
   onViewEntry,
 }) {
+  const badges = calculateBadges(stats, recentEntries);
+
   return (
     <div className="home-dashboard">
       {/* Hero invitation banner */}
@@ -111,6 +114,34 @@ export function HomeDashboard({
             <h4>Reflect & Preserve</h4>
             <p>Jot down your honest impressions. Local AI helps polish your notes while faithfully preserving every sighting.</p>
           </div>
+        </div>
+      </section>
+
+      {/* Botanical Milestones & Habit Badges */}
+      <section className="milestones-section">
+        <div className="section-title-wrap">
+          <h3 className="section-title">Botanical Milestones</h3>
+          <p className="section-subtitle">Real-world outdoor attention badges unlocked on your device</p>
+        </div>
+
+        <div className="badges-grid">
+          {badges.map((badge) => (
+            <div
+              key={badge.id}
+              className={`badge-card ${badge.unlocked ? 'badge-unlocked' : 'badge-locked'}`}
+            >
+              <div className="badge-icon-box">{badge.icon}</div>
+              <div className="badge-info">
+                <div className="badge-title-row">
+                  <h4 className="badge-title">{badge.title}</h4>
+                  <span className={`badge-status-pill ${badge.unlocked ? 'status-earned' : 'status-pending'}`}>
+                    {badge.unlocked ? 'Unlocked' : badge.progress}
+                  </span>
+                </div>
+                <p className="badge-desc">{badge.description}</p>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
