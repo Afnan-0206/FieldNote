@@ -8,7 +8,12 @@ import {
   ArrowLeftIcon,
   EyeIcon,
 } from './Icons.jsx';
-import { playGentleChime } from '../lib/audio.js';
+import {
+  playGentleChime,
+  getAudioSettings,
+  saveAudioSettings,
+  TONE_PRESETS,
+} from '../lib/audio.js';
 
 export function PocketMode({
   mission,
@@ -20,6 +25,8 @@ export function PocketMode({
   const [isActive, setIsActive] = useState(true);
   const [isFinished, setIsFinished] = useState(false);
   const [checkedSteps, setCheckedSteps] = useState({});
+  const [audioSettings, setAudioSettingsState] = useState(() => getAudioSettings());
+  const [showAudioControls, setShowAudioControls] = useState(false);
   const intervalRef = useRef(null);
 
   // Timer countdown effect with proper cleanup
@@ -31,7 +38,7 @@ export function PocketMode({
             clearInterval(intervalRef.current);
             setIsActive(false);
             setIsFinished(true);
-            playGentleChime();
+            playGentleChime(audioSettings.preset, audioSettings.volume);
             return 0;
           }
           return prev - 1;
@@ -46,7 +53,7 @@ export function PocketMode({
         clearInterval(intervalRef.current);
       }
     };
-  }, [isActive, secondsRemaining]);
+  }, [isActive, secondsRemaining, audioSettings]);
 
   const toggleTimer = () => {
     setIsActive((prev) => !prev);
@@ -68,6 +75,16 @@ export function PocketMode({
 
   const toggleStep = (idx) => {
     setCheckedSteps((prev) => ({ ...prev, [idx]: !prev[idx] }));
+  };
+
+  const handleUpdateAudio = (key, value) => {
+    const updated = { ...audioSettings, [key]: value };
+    setAudioSettingsState(updated);
+    saveAudioSettings(updated);
+  };
+
+  const handleTestAudio = () => {
+    playGentleChime(audioSettings.preset, audioSettings.volume);
   };
 
   const minutes = Math.floor(secondsRemaining / 60);
@@ -139,7 +156,71 @@ export function PocketMode({
             >
               <RotateCcwIcon size={16} />
             </button>
+
+            <button
+              type="button"
+              className={`pocket-btn-pill ${showAudioControls ? 'btn-pill-active' : ''}`}
+              onClick={() => setShowAudioControls((prev) => !prev)}
+              title="Sound settings"
+            >
+              🔔 {audioSettings.enabled ? 'Sound On' : 'Muted'}
+            </button>
           </div>
+
+          {showAudioControls && (
+            <div className="pocket-audio-settings card-panel">
+              <div className="audio-control-row">
+                <label className="audio-toggle-label">
+                  <input
+                    type="checkbox"
+                    checked={audioSettings.enabled}
+                    onChange={(e) => handleUpdateAudio('enabled', e.target.checked)}
+                  />
+                  <span>Enable Completion Sound</span>
+                </label>
+              </div>
+
+              {audioSettings.enabled && (
+                <>
+                  <div className="audio-control-row">
+                    <span className="audio-field-title">Chime Tone:</span>
+                    <div className="tone-pill-group">
+                      {Object.entries(TONE_PRESETS).map(([key, item]) => (
+                        <button
+                          key={key}
+                          type="button"
+                          className={`tone-pill-btn ${audioSettings.preset === key ? 'selected' : ''}`}
+                          onClick={() => handleUpdateAudio('preset', key)}
+                        >
+                          {item.name}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="audio-control-row">
+                    <span className="audio-field-title">Volume: {Math.round(audioSettings.volume * 100)}%</span>
+                    <input
+                      type="range"
+                      min="0.1"
+                      max="1.0"
+                      step="0.05"
+                      value={audioSettings.volume}
+                      onChange={(e) => handleUpdateAudio('volume', parseFloat(e.target.value))}
+                      className="audio-volume-slider"
+                    />
+                    <button
+                      type="button"
+                      className="btn btn-secondary btn-sm"
+                      onClick={handleTestAudio}
+                    >
+                      Preview Chime
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
+          )}
         </div>
 
         {/* Essential Instructions Card */}
