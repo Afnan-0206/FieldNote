@@ -11,6 +11,7 @@ import {
   LeafIcon,
   ClockIcon,
 } from './Icons.jsx';
+import { SpeciesChecklist } from './SpeciesChecklist.jsx';
 
 export function NatureJournal({
   mission,
@@ -28,6 +29,7 @@ export function NatureJournal({
   const [locationLabel, setLocationLabel] = useState('');
   const [sensoryDetails, setSensoryDetails] = useState('');
   const [photoData, setPhotoData] = useState(null);
+  const [showSpeciesCounter, setShowSpeciesCounter] = useState(false);
   const environment = mission?.environment || 'park';
   const duration = mission?.duration || 10;
 
@@ -220,6 +222,28 @@ export function NatureJournal({
               placeholder="A sudden bird call, an insect hiding in moss, the chill of a shadow..."
             />
           </div>
+
+          <div className="checklist-toggle-strip">
+            <button
+              type="button"
+              className="btn btn-secondary btn-sm"
+              onClick={() => setShowSpeciesCounter((prev) => !prev)}
+            >
+              <LeafIcon size={14} />
+              {showSpeciesCounter ? 'Hide Observation Tally' : 'Open Observation Tally (Birds, Flora, Fungi...)'}
+            </button>
+          </div>
+
+          {showSpeciesCounter && (
+            <div className="species-counter-wrapper">
+              <SpeciesChecklist
+                onApplyToNotes={(summary) => {
+                  setNotes((prev) => (prev ? `${prev}\n\n${summary}` : summary));
+                }}
+              />
+            </div>
+          )}
+
 
           <div className="journal-form-group">
             <label className="journal-label" htmlFor="location-input">

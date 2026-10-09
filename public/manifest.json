@@ -1,0 +1,18 @@
+{
+  "name": "FieldNote — Nature Observation Journal",
+  "short_name": "FieldNote",
+  "description": "Local-AI distraction-free outdoor observation journal built for mindful naturalists.",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#f4f1ea",
+  "theme_color": "#2d5a3f",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

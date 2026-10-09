@@ -5,6 +5,7 @@ export function Header({
   onSelectTab,
   health,
   onOpenAiModal,
+  onOpenShortcuts,
   entryCount = 0,
 }) {
   return (
@@ -49,8 +50,18 @@ export function Header({
           </button>
         </nav>
 
-        {/* Local AI status badge */}
+        {/* Local AI status badge and shortcuts */}
         <div className="header-actions">
+          <button
+            type="button"
+            className="icon-btn-sm"
+            onClick={onOpenShortcuts}
+            title="Keyboard Shortcuts (?)"
+            aria-label="Keyboard Shortcuts"
+          >
+            ⌨️
+          </button>
+
           <button
             type="button"
             className={`ai-pill ${health?.ok ? 'ai-pill-active' : 'ai-pill-warning'}`}
