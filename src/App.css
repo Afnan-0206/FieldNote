@@ -2253,3 +2253,136 @@
     justify-content: flex-start;
   }
 }
+
+/* Species Observation Checklist & Counter */
+.checklist-toggle-strip {
+  margin-bottom: 1.25rem;
+}
+
+.species-checklist-card {
+  margin-bottom: 1.5rem;
+  padding: 1.25rem;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid var(--border-color);
+}
+
+.dark-mode .species-checklist-card {
+  background: rgba(30, 41, 35, 0.5);
+}
+
+.species-checklist-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.species-header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--forest-green);
+}
+
+.species-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.species-header-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.species-total-badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  background: rgba(46, 125, 50, 0.15);
+  color: var(--forest-green);
+}
+
+.species-reset-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  padding: 0.25rem;
+}
+
+.species-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 0.75rem;
+}
+
+.species-counter-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0.75rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  transition: all 0.2s ease;
+}
+
+.species-counter-item.item-active {
+  border-color: var(--forest-green);
+  background: rgba(46, 125, 50, 0.05);
+}
+
+.species-item-icon {
+  font-size: 1.1rem;
+  margin-right: 0.4rem;
+}
+
+.species-item-name {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.species-btn-group {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.species-btn-step {
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-main);
+  color: var(--text-main);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.species-count-val {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  min-width: 14px;
+  text-align: center;
+}
+
+.species-apply-strip {
+  margin-top: 1rem;
+  text-align: right;
+}
