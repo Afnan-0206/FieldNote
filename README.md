@@ -159,4 +159,3 @@ npm run build
 - **Hardware Requirements:** Running `qwen2.5:7b` requires approximately 4.7 GB of available VRAM or system RAM. On CPU-only systems without hardware acceleration, generating a mission or organizing notes may take 20–50 seconds.
 - **Setup Dependencies:** While model inference is 100% offline, first-time downloads (Ollama model pull, `npm install`) require an internet connection.
 - **Botanical Accuracy:** AI cannot substitute for professional botanical or ecological identification. FieldNote never guarantees species classifications and strictly advises against consuming wild flora or fungi.
-# FieldNote
