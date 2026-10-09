@@ -17,6 +17,7 @@ import {
 import {
   exportEntryAsMarkdown,
   exportAllAsJson,
+  exportAllAsCsv,
   importEntriesFromJson,
 } from '../lib/storage.js';
 
@@ -150,10 +151,26 @@ export function FieldLibrary({
             <button
               type="button"
               className="btn btn-outline btn-sm"
+              onClick={exportAllAsCsv}
+              title="Export all observations as CSV spreadsheet for citizen science analysis"
+            >
+              <DownloadIcon size={15} /> Export (CSV)
+            </button>
+            <button
+              type="button"
+              className="btn btn-outline btn-sm"
               onClick={() => fileInputRef.current?.click()}
               title="Restore entries from a backup JSON file"
             >
               <UploadIcon size={15} /> Import Backup
+            </button>
+            <button
+              type="button"
+              className="btn btn-outline btn-sm"
+              onClick={() => window.print()}
+              title="Print complete nature journal archive"
+            >
+              🖨️ Print Archives
             </button>
             <input
               type="file"
@@ -322,6 +339,17 @@ export function FieldLibrary({
                       </div>
                     </div>
 
+                    {entry.photoUrl && (
+                      <div
+                        className="entry-card-thumb"
+                        onClick={() => setActiveEntryModal(entry)}
+                        role="button"
+                        tabIndex={0}
+                      >
+                        <img src={entry.photoUrl} alt={entry.title} />
+                      </div>
+                    )}
+
                     <h3
                       className="entry-title"
                       onClick={() => setActiveEntryModal(entry)}
@@ -448,6 +476,16 @@ export function FieldLibrary({
             </div>
 
             <div className="modal-body entry-modal-body">
+              {activeEntryModal.photoUrl && (
+                <div className="detail-section entry-modal-photo-wrapper">
+                  <img
+                    src={activeEntryModal.photoUrl}
+                    alt={activeEntryModal.title}
+                    className="modal-full-photo"
+                  />
+                </div>
+              )}
+
               {/* Polished notes */}
               <div className="detail-section">
                 <h4 className="detail-sec-title">Field Reflection</h4>
@@ -502,6 +540,14 @@ export function FieldLibrary({
             </div>
 
             <div className="modal-footer">
+              <button
+                type="button"
+                className="btn btn-secondary"
+                onClick={() => window.print()}
+                title="Print physical botanical field sheet"
+              >
+                🖨️ Print Field Sheet
+              </button>
               <button
                 className="btn btn-outline"
                 onClick={() => exportEntryAsMarkdown(activeEntryModal)}

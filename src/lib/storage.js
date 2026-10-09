@@ -187,6 +187,56 @@ export function exportAllAsJson() {
 }
 
 /**
+ * Exports all entries as CSV format for spreadsheet / citizen science analysis.
+ */
+export function exportAllAsCsv() {
+  const entries = getEntries();
+  const headers = [
+    'ID',
+    'Date',
+    'Title',
+    'Duration_Min',
+    'Environment',
+    'Location',
+    'Tags',
+    'Weather',
+    'Season',
+    'Reflection_Notes',
+    'Raw_Notes',
+    'Surprises',
+  ];
+
+  const escapeCell = (val) => {
+    if (val === null || val === undefined) return '""';
+    const str = String(val).replace(/"/g, '""');
+    return `"${str}"`;
+  };
+
+  const rows = entries.map((e) =>
+    [
+      escapeCell(e.id),
+      escapeCell(e.createdAt ? new Date(e.createdAt).toISOString() : ''),
+      escapeCell(e.title || ''),
+      escapeCell(e.duration || 10),
+      escapeCell(e.environment || ''),
+      escapeCell(e.location || ''),
+      escapeCell(Array.isArray(e.tags) ? e.tags.join('; ') : ''),
+      escapeCell(e.weather || ''),
+      escapeCell(e.season || ''),
+      escapeCell(e.readableNotes || e.originalSummary || ''),
+      escapeCell(e.rawInput?.notes || ''),
+      escapeCell(e.rawInput?.surprises || ''),
+    ].join(',')
+  );
+
+  const csvContent = [headers.join(','), ...rows].join('\r\n');
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8' });
+  const filename = `FieldNote_Data_${new Date().toISOString().slice(0, 10)}.csv`;
+  triggerDownload(blob, filename);
+}
+
+
+/**
  * Imports backup JSON and merges with existing entries.
  */
 export function importEntriesFromJson(jsonText) {
@@ -234,3 +284,64 @@ function triggerDownload(blob, filename) {
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
 }
+
+/**
+ * Calculates unlocked badges and milestone progress based on observation history.
+ */
+export function calculateBadges(stats, entries = []) {
+  const missions = Number(stats?.missionsCompleted) || 0;
+  const minutes = Number(stats?.totalMinutes) || 0;
+  const noteCount = entries.length;
+
+  return [
+    {
+      id: 'first-sprout',
+      title: 'First Sprout',
+      icon: '🌱',
+      description: 'Completed your very first outdoor observation mission.',
+      unlocked: missions >= 1,
+      progress: `${Math.min(missions, 1)}/1`,
+    },
+    {
+      id: 'half-hour',
+      title: '30 Mins Grounded',
+      icon: '⏱️',
+      description: 'Spent at least 30 minutes in nature with phone tucked away.',
+      unlocked: minutes >= 30,
+      progress: `${Math.min(minutes, 30)}/30 min`,
+    },
+    {
+      id: 'canopy-seeker',
+      title: 'Canopy Seeker',
+      icon: '🌲',
+      description: 'Recorded observations across 3 or more field sessions.',
+      unlocked: noteCount >= 3,
+      progress: `${Math.min(noteCount, 3)}/3`,
+    },
+    {
+      id: 'century-naturalist',
+      title: 'Century Naturalist',
+      icon: '💯',
+      description: 'Accumulated over 100 mindful minutes outdoors.',
+      unlocked: minutes >= 100,
+      progress: `${Math.min(minutes, 100)}/100 min`,
+    },
+    {
+      id: 'grass-toucher',
+      title: 'Dedicated Grass Toucher',
+      icon: '🌾',
+      description: 'Recorded 5 or more nature field notes in your local archive.',
+      unlocked: noteCount >= 5,
+      progress: `${Math.min(noteCount, 5)}/5`,
+    },
+    {
+      id: 'master-naturalist',
+      title: 'Master Naturalist',
+      icon: '🦉',
+      description: 'Recorded 10 or more detailed botanical observations.',
+      unlocked: noteCount >= 10,
+      progress: `${Math.min(noteCount, 10)}/10`,
+    },
+  ];
+}
+
