@@ -28,6 +28,7 @@ export function NatureJournal({
   const [surprises, setSurprises] = useState('');
   const [locationLabel, setLocationLabel] = useState('');
   const [sensoryDetails, setSensoryDetails] = useState('');
+  const [photoData, setPhotoData] = useState(null);
   const [showSpeciesCounter, setShowSpeciesCounter] = useState(false);
   const environment = mission?.environment || 'park';
   const duration = mission?.duration || 10;
@@ -67,6 +68,43 @@ export function NatureJournal({
     }
   };
 
+  const handlePhotoSelect = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (!file.type.startsWith('image/')) {
+      alert('Please upload a valid image file (JPEG, PNG, WebP).');
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const maxDimension = 900;
+        let width = img.width;
+        let height = img.height;
+        if (width > maxDimension || height > maxDimension) {
+          if (width > height) {
+            height = Math.round((height * maxDimension) / width);
+            width = maxDimension;
+          } else {
+            width = Math.round((width * maxDimension) / height);
+            height = maxDimension;
+          }
+        }
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+        const compressedData = canvas.toDataURL('image/jpeg', 0.75);
+        setPhotoData(compressedData);
+      };
+      img.src = event.target.result;
+    };
+    reader.readAsDataURL(file);
+    e.target.value = '';
+  };
+
   // Handle final save
   const handleSaveClick = () => {
     const rawInput = {
@@ -92,6 +130,7 @@ export function NatureJournal({
         rawInput,
         duration: Number(duration) || 10,
         environment,
+        photoUrl: photoData || null,
         location: locationLabel.trim(),
         missionTitle,
       };
@@ -111,6 +150,7 @@ export function NatureJournal({
         rawInput,
         duration: Number(duration) || 10,
         environment,
+        photoUrl: photoData || null,
         location: locationLabel.trim(),
         missionTitle,
       };
@@ -233,6 +273,38 @@ export function NatureJournal({
               placeholder="e.g. damp wind, ochre lichen, rustling oak canopy..."
             />
           </div>
+
+          <div className="journal-form-group">
+            <label className="journal-label">
+              Botanical Field Photo / Sketch (Optional)
+            </label>
+            <div className="photo-upload-container">
+              {photoData ? (
+                <div className="photo-preview-wrapper">
+                  <img src={photoData} alt="Field observation" className="photo-preview-thumb" />
+                  <button
+                    type="button"
+                    className="btn btn-secondary btn-sm"
+                    onClick={() => setPhotoData(null)}
+                  >
+                    Remove Photo
+                  </button>
+                </div>
+              ) : (
+                <label className="photo-upload-dropzone">
+                  <span>📷 Upload Photo or Field Sketch</span>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handlePhotoSelect}
+                    style={{ display: 'none' }}
+                  />
+                </label>
+              )}
+            </div>
+            <span className="field-hint">Optimized locally and stored strictly in your browser storage.</span>
+          </div>
+
 
           {/* AI organize trigger */}
           <div className="organize-action-strip">
