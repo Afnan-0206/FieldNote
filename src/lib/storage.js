@@ -234,3 +234,64 @@ function triggerDownload(blob, filename) {
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
 }
+
+/**
+ * Calculates unlocked badges and milestone progress based on observation history.
+ */
+export function calculateBadges(stats, entries = []) {
+  const missions = Number(stats?.missionsCompleted) || 0;
+  const minutes = Number(stats?.totalMinutes) || 0;
+  const noteCount = entries.length;
+
+  return [
+    {
+      id: 'first-sprout',
+      title: 'First Sprout',
+      icon: '🌱',
+      description: 'Completed your very first outdoor observation mission.',
+      unlocked: missions >= 1,
+      progress: `${Math.min(missions, 1)}/1`,
+    },
+    {
+      id: 'half-hour',
+      title: '30 Mins Grounded',
+      icon: '⏱️',
+      description: 'Spent at least 30 minutes in nature with phone tucked away.',
+      unlocked: minutes >= 30,
+      progress: `${Math.min(minutes, 30)}/30 min`,
+    },
+    {
+      id: 'canopy-seeker',
+      title: 'Canopy Seeker',
+      icon: '🌲',
+      description: 'Recorded observations across 3 or more field sessions.',
+      unlocked: noteCount >= 3,
+      progress: `${Math.min(noteCount, 3)}/3`,
+    },
+    {
+      id: 'century-naturalist',
+      title: 'Century Naturalist',
+      icon: '💯',
+      description: 'Accumulated over 100 mindful minutes outdoors.',
+      unlocked: minutes >= 100,
+      progress: `${Math.min(minutes, 100)}/100 min`,
+    },
+    {
+      id: 'grass-toucher',
+      title: 'Dedicated Grass Toucher',
+      icon: '🌾',
+      description: 'Recorded 5 or more nature field notes in your local archive.',
+      unlocked: noteCount >= 5,
+      progress: `${Math.min(noteCount, 5)}/5`,
+    },
+    {
+      id: 'master-naturalist',
+      title: 'Master Naturalist',
+      icon: '🦉',
+      description: 'Recorded 10 or more detailed botanical observations.',
+      unlocked: noteCount >= 10,
+      progress: `${Math.min(noteCount, 10)}/10`,
+    },
+  ];
+}
+
