@@ -17,6 +17,7 @@ import {
 import {
   exportEntryAsMarkdown,
   exportAllAsJson,
+  exportAllAsCsv,
   importEntriesFromJson,
 } from '../lib/storage.js';
 
@@ -146,6 +147,14 @@ export function FieldLibrary({
               title="Download full JSON backup of all journal entries"
             >
               <DownloadIcon size={15} /> Export All (JSON)
+            </button>
+            <button
+              type="button"
+              className="btn btn-outline btn-sm"
+              onClick={exportAllAsCsv}
+              title="Export all observations as CSV spreadsheet for citizen science analysis"
+            >
+              <DownloadIcon size={15} /> Export (CSV)
             </button>
             <button
               type="button"
