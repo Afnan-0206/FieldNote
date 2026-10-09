@@ -8,6 +8,7 @@ import { NatureJournal } from './components/NatureJournal.jsx';
 import { FieldLibrary } from './components/FieldLibrary.jsx';
 import { WhyLocalAi } from './components/WhyLocalAi.jsx';
 import { AiStatusModal } from './components/AiStatusModal.jsx';
+import { KeyboardShortcutsModal } from './components/KeyboardShortcutsModal.jsx';
 import {
   getEntries,
   saveEntry,
@@ -24,6 +25,7 @@ export function App() {
   const [health, setHealth] = useState(null);
   const [isHealthRefreshing, setIsHealthRefreshing] = useState(false);
   const [isAiModalOpen, setIsAiModalOpen] = useState(false);
+  const [isShortcutsOpen, setIsShortcutsOpen] = useState(false);
 
   // Journal entries & stats
   const [entries, setEntries] = useState(() => getEntries());
@@ -59,6 +61,37 @@ export function App() {
     return () => {
       ignore = true;
     };
+  }, []);
+
+  // Keyboard navigation & shortcuts
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName)) {
+        if (e.key === 'Escape') {
+          e.target.blur();
+        }
+        return;
+      }
+
+      if (e.key === '?' || (e.key === '/' && e.shiftKey)) {
+        e.preventDefault();
+        setIsShortcutsOpen((prev) => !prev);
+      } else if (e.key === 'Escape') {
+        setIsShortcutsOpen(false);
+        setIsAiModalOpen(false);
+      } else if (e.key === 'h' || e.key === 'H') {
+        setActiveTab('home');
+      } else if (e.key === 'm' || e.key === 'M') {
+        setActiveTab('mission');
+      } else if (e.key === 'j' || e.key === 'J') {
+        setActiveTab('journal');
+      } else if (e.key === 'l' || e.key === 'L') {
+        setActiveTab('library');
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
   // Workflow Handlers
@@ -177,6 +210,7 @@ export function App() {
         }}
         health={health}
         onOpenAiModal={() => setIsAiModalOpen(true)}
+        onOpenShortcuts={() => setIsShortcutsOpen(true)}
         entryCount={entries.length}
       />
 
@@ -267,6 +301,11 @@ export function App() {
         onRefreshHealth={refreshHealth}
         isRefreshing={isHealthRefreshing}
       />
+
+      {/* Naturalist Keyboard Shortcuts Modal */}
+      {isShortcutsOpen && (
+        <KeyboardShortcutsModal onClose={() => setIsShortcutsOpen(false)} />
+      )}
     </div>
   );
 }
