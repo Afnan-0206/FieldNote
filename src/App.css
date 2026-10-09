@@ -2253,3 +2253,72 @@
     justify-content: flex-start;
   }
 }
+
+/* Botanical Photo & Field Sketch Attachments */
+.photo-upload-dropzone {
+  display: block;
+  padding: 0.85rem 1rem;
+  border: 2px dashed var(--border-color);
+  border-radius: var(--radius-md);
+  text-align: center;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.4);
+  color: var(--text-muted);
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.photo-upload-dropzone:hover {
+  border-color: var(--forest-green);
+  color: var(--forest-green);
+  background: rgba(46, 125, 50, 0.05);
+}
+
+.photo-preview-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.photo-preview-thumb {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+}
+
+.entry-card-thumb {
+  width: 100%;
+  height: 140px;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+  margin-bottom: 0.75rem;
+  cursor: pointer;
+}
+
+.entry-card-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.entry-card-thumb:hover img {
+  transform: scale(1.03);
+}
+
+.entry-modal-photo-wrapper {
+  max-height: 380px;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.modal-full-photo {
+  max-width: 100%;
+  max-height: 380px;
+  object-fit: contain;
+  border-radius: var(--radius-md);
+}

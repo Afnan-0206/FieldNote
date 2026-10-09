@@ -312,6 +312,17 @@ export function FieldLibrary({
                       </div>
                     </div>
 
+                    {entry.photoUrl && (
+                      <div
+                        className="entry-card-thumb"
+                        onClick={() => setActiveEntryModal(entry)}
+                        role="button"
+                        tabIndex={0}
+                      >
+                        <img src={entry.photoUrl} alt={entry.title} />
+                      </div>
+                    )}
+
                     <h3
                       className="entry-title"
                       onClick={() => setActiveEntryModal(entry)}
@@ -428,6 +439,16 @@ export function FieldLibrary({
             </div>
 
             <div className="modal-body entry-modal-body">
+              {activeEntryModal.photoUrl && (
+                <div className="detail-section entry-modal-photo-wrapper">
+                  <img
+                    src={activeEntryModal.photoUrl}
+                    alt={activeEntryModal.title}
+                    className="modal-full-photo"
+                  />
+                </div>
+              )}
+
               {/* Polished notes */}
               <div className="detail-section">
                 <h4 className="detail-sec-title">Field Reflection</h4>
