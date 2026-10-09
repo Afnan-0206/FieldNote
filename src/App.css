@@ -2253,3 +2253,70 @@
     justify-content: flex-start;
   }
 }
+
+/* Naturalist Keyboard Shortcuts Modal */
+.modal-shortcuts {
+  max-width: 480px;
+}
+
+.shortcuts-sub {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  margin-bottom: 1.25rem;
+  line-height: 1.4;
+}
+
+.shortcuts-table {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.shortcut-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.55rem 0.75rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+}
+
+.shortcut-action {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-main);
+}
+
+.shortcut-kbd {
+  display: inline-block;
+  padding: 0.2rem 0.55rem;
+  font-family: inherit;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  background: var(--bg-main);
+  border: 1px solid var(--border-color);
+  border-bottom: 2px solid var(--border-color);
+  border-radius: 4px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
+  color: var(--forest-green);
+}
+
+.icon-btn-sm {
+  background: none;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 0.35rem 0.55rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  color: var(--text-main);
+}
+
+.icon-btn-sm:hover {
+  border-color: var(--forest-green);
+  background: rgba(46, 125, 50, 0.08);
+}
