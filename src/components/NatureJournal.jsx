@@ -316,6 +316,8 @@ export function NatureJournal({
                 <option value="winter">❄️ Winter</option>
               </select>
             </div>
+          </div>
+
           <div className="journal-form-group">
             <label className="journal-label">
               Botanical Field Photo / Sketch (Optional)
