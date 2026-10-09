@@ -321,6 +321,16 @@ export function FieldLibrary({
                         <span className="entry-pill">
                           <ClockIcon size={12} /> {entry.duration || 10}m
                         </span>
+                        {entry.weather && (
+                          <span className="entry-pill weather-pill">
+                            {entry.weather === 'sunny' ? '☀️' : entry.weather === 'overcast' ? '☁️' : entry.weather === 'light-rain' ? '🌧️' : entry.weather === 'fog' ? '🌫️' : entry.weather === 'breezy' ? '🍃' : '❄️'} {entry.weather}
+                          </span>
+                        )}
+                        {entry.season && (
+                          <span className="entry-pill season-pill">
+                            {entry.season === 'spring' ? '🌱' : entry.season === 'summer' ? '🌻' : entry.season === 'autumn' ? '🍂' : '❄️'} {entry.season}
+                          </span>
+                        )}
                         {entry.location && (
                           <span className="entry-pill">
                             <MapPinIcon size={12} /> {entry.location}
@@ -439,6 +449,16 @@ export function FieldLibrary({
                     <ClockIcon size={13} /> {activeEntryModal.duration || 10} minutes
                   </span>
                   <span className="entry-pill">{activeEntryModal.environment || 'Outdoors'}</span>
+                  {activeEntryModal.weather && (
+                    <span className="entry-pill weather-pill">
+                      {activeEntryModal.weather === 'sunny' ? '☀️' : activeEntryModal.weather === 'overcast' ? '☁️' : activeEntryModal.weather === 'light-rain' ? '🌧️' : activeEntryModal.weather === 'fog' ? '🌫️' : activeEntryModal.weather === 'breezy' ? '🍃' : '❄️'} {activeEntryModal.weather}
+                    </span>
+                  )}
+                  {activeEntryModal.season && (
+                    <span className="entry-pill season-pill">
+                      {activeEntryModal.season === 'spring' ? '🌱' : activeEntryModal.season === 'summer' ? '🌻' : activeEntryModal.season === 'autumn' ? '🍂' : '❄️'} {activeEntryModal.season}
+                    </span>
+                  )}
                   {activeEntryModal.location && (
                     <span className="entry-pill">
                       <MapPinIcon size={13} /> {activeEntryModal.location}

@@ -2254,6 +2254,38 @@
   }
 }
 
+/* Weather & Seasonal Tags */
+.journal-form-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.journal-form-group.half-width {
+  flex: 1;
+}
+
+.weather-pill {
+  background: rgba(220, 240, 255, 0.5) !important;
+  color: #1d4ed8 !important;
+  border-color: rgba(147, 197, 253, 0.6) !important;
+}
+
+.dark-mode .weather-pill {
+  background: rgba(30, 58, 90, 0.4) !important;
+  color: #93c5fd !important;
+  border-color: rgba(59, 130, 246, 0.3) !important;
+}
+
+.season-pill {
+  background: rgba(254, 243, 199, 0.5) !important;
+  color: #b45309 !important;
+  border-color: rgba(252, 211, 77, 0.6) !important;
+}
+
+.dark-mode .season-pill {
+  background: rgba(90, 60, 20, 0.4) !important;
+  color: #fde68a !important;
+  border-color: rgba(217, 119, 6, 0.3) !important;
 /* Botanical Photo & Field Sketch Attachments */
 .photo-upload-dropzone {
   display: block;

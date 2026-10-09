@@ -28,6 +28,8 @@ export function NatureJournal({
   const [surprises, setSurprises] = useState('');
   const [locationLabel, setLocationLabel] = useState('');
   const [sensoryDetails, setSensoryDetails] = useState('');
+  const [weather, setWeather] = useState('sunny');
+  const [season, setSeason] = useState('autumn');
   const [photoData, setPhotoData] = useState(null);
   const [showSpeciesCounter, setShowSpeciesCounter] = useState(false);
   const environment = mission?.environment || 'park';
@@ -130,6 +132,8 @@ export function NatureJournal({
         rawInput,
         duration: Number(duration) || 10,
         environment,
+        weather,
+        season,
         photoUrl: photoData || null,
         location: locationLabel.trim(),
         missionTitle,
@@ -150,6 +154,8 @@ export function NatureJournal({
         rawInput,
         duration: Number(duration) || 10,
         environment,
+        weather,
+        season,
         photoUrl: photoData || null,
         location: locationLabel.trim(),
         missionTitle,
@@ -262,7 +268,7 @@ export function NatureJournal({
 
           <div className="journal-form-group">
             <label className="journal-label" htmlFor="sensory-input">
-              Sensory Details (Sounds, Colours, Shapes, Weather)
+              Sensory Details (Sounds, Colours, Shapes)
             </label>
             <input
               id="sensory-input"
@@ -274,6 +280,42 @@ export function NatureJournal({
             />
           </div>
 
+          <div className="journal-form-row">
+            <div className="journal-form-group half-width">
+              <label className="journal-label" htmlFor="weather-select">
+                Weather Condition
+              </label>
+              <select
+                id="weather-select"
+                value={weather}
+                onChange={(e) => setWeather(e.target.value)}
+                className="select-input"
+              >
+                <option value="sunny">☀️ Sunny / Clear</option>
+                <option value="overcast">☁️ Overcast / Cloudy</option>
+                <option value="light-rain">🌧️ Light Rain / Drizzle</option>
+                <option value="fog">🌫️ Fog / Mist</option>
+                <option value="breezy">🍃 Breezy / Windy</option>
+                <option value="snow">❄️ Snow / Frost</option>
+              </select>
+            </div>
+
+            <div className="journal-form-group half-width">
+              <label className="journal-label" htmlFor="season-select">
+                Season
+              </label>
+              <select
+                id="season-select"
+                value={season}
+                onChange={(e) => setSeason(e.target.value)}
+                className="select-input"
+              >
+                <option value="spring">🌱 Spring</option>
+                <option value="summer">🌻 Summer</option>
+                <option value="autumn">🍂 Autumn</option>
+                <option value="winter">❄️ Winter</option>
+              </select>
+            </div>
           <div className="journal-form-group">
             <label className="journal-label">
               Botanical Field Photo / Sketch (Optional)
