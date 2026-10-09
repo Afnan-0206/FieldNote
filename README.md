@@ -2,9 +2,23 @@
 > *“Less screen. More world.”*
 > Built for the Hacktoberfest 2026 DEV Challenge: **“Touch Grass”**.
 
-FieldNote is a local-first, distraction-free outdoor observation journal powered by open-weight AI running directly on your computer via Ollama. It is designed to help people spend more time observing living nature and less time staring at their phones.
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Cloudflare%20Pages-f38020?logo=cloudflarepages&logoColor=white)](https://1d037bfe.fieldnote-byg.pages.dev/)
+[![Production URL](https://img.shields.io/badge/Production-fieldnote--byg.pages.dev-2d5a3f)](https://1d037bfe.fieldnote-byg.pages.dev/)
+
+🌐 **Live Deployed Web App:** [https://1d037bfe.fieldnote-byg.pages.dev/](https://1d037bfe.fieldnote-byg.pages.dev/) (or [https://fieldnote-byg.pages.dev/](https://fieldnote-byg.pages.dev/))
+
+FieldNote is a local-first, distraction-free outdoor observation journal powered by open-weight AI running directly on your computer via Ollama or at the edge on Cloudflare Pages. It is designed to help people spend more time observing living nature and less time staring at their phones.
 
 ---
+
+## 🌐 Live Cloudflare Pages Deployment
+
+You can try FieldNote immediately in your web browser:
+- **Deployed App:** [https://1d037bfe.fieldnote-byg.pages.dev/](https://1d037bfe.fieldnote-byg.pages.dev/)
+- **Primary Domain:** [https://fieldnote-byg.pages.dev/](https://fieldnote-byg.pages.dev/)
+- **Edge Inference:** Cloudflare Workers AI with `@cf/meta/llama-3.2-3b-instruct`
+- **Client Storage:** 100% on-device browser `localStorage` with zero telemetry
+
 
 ## 1. Motivation: The “Touch Grass” Problem
 

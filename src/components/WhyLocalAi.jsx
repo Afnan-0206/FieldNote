@@ -40,7 +40,16 @@ export function WhyLocalAi({ health, onRefreshHealth, isRefreshing }) {
           </div>
           <h3>2. Cloud Mode (Cloudflare Workers AI)</h3>
           <p>
-            When deployed on Cloudflare Pages, serverless edge functions invoke Cloudflare Workers AI with <code>@cf/meta/llama-3.2-3b-instruct</code>. Prompts are transmitted securely over HTTPS to Cloudflare's global edge network. Your journal entries still reside exclusively in your browser's local storage.
+            When deployed on Cloudflare Pages (live at{' '}
+            <a
+              href="https://1d037bfe.fieldnote-byg.pages.dev/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-doc-link"
+            >
+              1d037bfe.fieldnote-byg.pages.dev
+            </a>
+            ), serverless edge functions invoke Cloudflare Workers AI with <code>@cf/meta/llama-3.2-3b-instruct</code>. Prompts are transmitted securely over HTTPS to Cloudflare's global edge network. Your journal entries still reside exclusively in your browser's local storage.
           </p>
         </div>
 

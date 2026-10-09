@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "description": "FieldNote — Local-AI Nature Journal for Touch Grass Hacktoberfest 2026",
+  "homepage": "https://1d037bfe.fieldnote-byg.pages.dev/",
   "type": "module",
   "scripts": {
     "dev": "concurrently -n \"server,client\" -c \"yellow,cyan\" \"node server/index.js\" \"vite\"",

@@ -52,6 +52,17 @@ export function Header({
 
         {/* Local AI status badge and shortcuts */}
         <div className="header-actions">
+          <a
+            href="https://1d037bfe.fieldnote-byg.pages.dev/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="icon-btn-sm"
+            title="Open Live Cloudflare Pages Deployment"
+            aria-label="Live App"
+          >
+            🌐
+          </a>
+
           <button
             type="button"
             className="icon-btn-sm"

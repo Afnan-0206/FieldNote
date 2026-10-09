@@ -82,6 +82,21 @@ export function AiStatusModal({ isOpen, onClose, health, onRefreshHealth, isRefr
                 {health?.ok ? 'Ready for requests' : 'Configuration required'}
               </span>
             </div>
+            {isCloudflare && (
+              <div className="diagnostic-item">
+                <span className="label">Live Deployment</span>
+                <span className="value">
+                  <a
+                    href="https://1d037bfe.fieldnote-byg.pages.dev/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-doc-link"
+                  >
+                    1d037bfe.fieldnote-byg.pages.dev ↗
+                  </a>
+                </span>
+              </div>
+            )}
           </div>
 
           {/* Local models list if on Ollama */}

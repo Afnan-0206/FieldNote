@@ -35,6 +35,15 @@ export function HomeDashboard({
               <BookOpenIcon size={20} />
               Browse Field Journal ({stats.totalObservations})
             </button>
+            <a
+              href="https://1d037bfe.fieldnote-byg.pages.dev/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-ghost btn-lg hero-live-link"
+              title="Open Cloudflare Pages Live Deployment"
+            >
+              🌐 Live Demo
+            </a>
           </div>
         </div>
 
@@ -205,6 +214,16 @@ export function HomeDashboard({
           “The world is full of magic things, patiently waiting for our senses to grow sharper.”
           <span className="quote-author"> — W.B. Yeats</span>
         </p>
+        <div className="footer-deployment-link">
+          <a
+            href="https://1d037bfe.fieldnote-byg.pages.dev/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="deployment-badge-link"
+          >
+            🌿 Live App: 1d037bfe.fieldnote-byg.pages.dev
+          </a>
+        </div>
       </footer>
     </div>
   );
