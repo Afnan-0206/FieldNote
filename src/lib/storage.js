@@ -187,6 +187,56 @@ export function exportAllAsJson() {
 }
 
 /**
+ * Exports all entries as CSV format for spreadsheet / citizen science analysis.
+ */
+export function exportAllAsCsv() {
+  const entries = getEntries();
+  const headers = [
+    'ID',
+    'Date',
+    'Title',
+    'Duration_Min',
+    'Environment',
+    'Location',
+    'Tags',
+    'Weather',
+    'Season',
+    'Reflection_Notes',
+    'Raw_Notes',
+    'Surprises',
+  ];
+
+  const escapeCell = (val) => {
+    if (val === null || val === undefined) return '""';
+    const str = String(val).replace(/"/g, '""');
+    return `"${str}"`;
+  };
+
+  const rows = entries.map((e) =>
+    [
+      escapeCell(e.id),
+      escapeCell(e.createdAt ? new Date(e.createdAt).toISOString() : ''),
+      escapeCell(e.title || ''),
+      escapeCell(e.duration || 10),
+      escapeCell(e.environment || ''),
+      escapeCell(e.location || ''),
+      escapeCell(Array.isArray(e.tags) ? e.tags.join('; ') : ''),
+      escapeCell(e.weather || ''),
+      escapeCell(e.season || ''),
+      escapeCell(e.readableNotes || e.originalSummary || ''),
+      escapeCell(e.rawInput?.notes || ''),
+      escapeCell(e.rawInput?.surprises || ''),
+    ].join(',')
+  );
+
+  const csvContent = [headers.join(','), ...rows].join('\r\n');
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8' });
+  const filename = `FieldNote_Data_${new Date().toISOString().slice(0, 10)}.csv`;
+  triggerDownload(blob, filename);
+}
+
+
+/**
  * Imports backup JSON and merges with existing entries.
  */
 export function importEntriesFromJson(jsonText) {
