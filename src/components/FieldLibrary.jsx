@@ -164,6 +164,14 @@ export function FieldLibrary({
             >
               <UploadIcon size={15} /> Import Backup
             </button>
+            <button
+              type="button"
+              className="btn btn-outline btn-sm"
+              onClick={() => window.print()}
+              title="Print complete nature journal archive"
+            >
+              🖨️ Print Archives
+            </button>
             <input
               type="file"
               ref={fileInputRef}
@@ -491,6 +499,14 @@ export function FieldLibrary({
             </div>
 
             <div className="modal-footer">
+              <button
+                type="button"
+                className="btn btn-secondary"
+                onClick={() => window.print()}
+                title="Print physical botanical field sheet"
+              >
+                🖨️ Print Field Sheet
+              </button>
               <button
                 className="btn btn-outline"
                 onClick={() => exportEntryAsMarkdown(activeEntryModal)}
